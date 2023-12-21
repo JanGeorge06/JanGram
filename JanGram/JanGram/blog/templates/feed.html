@@ -18,24 +18,51 @@
         }
 
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-        }
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
 
-        nav {
-            background-color: #444;
-            padding: 1em;
-            text-align: right;
-        }
+nav {
+    background-color: #444;
+    padding: 1em;
+    text-align: right;
+}
 
-        nav a {
-            color: #fff;
-            margin: 0 1em;
-            text-decoration: none;
-            font-weight: bold;
-        }
+nav a {
+    color: #fff;
+    margin: 0 1em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Style for the search bar */
+form {
+    display: inline-block;
+}
+
+input[type="text"] {
+    padding: 0.5em;
+    margin-right: 0.5em;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+button[type="submit"] {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 3px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
 
         /* Updated styles for the main section */
         main {
@@ -156,11 +183,17 @@
         <h1>JanGram</h1>
         <nav>
             <p id="welcome"> Hello {{user}}</p>
+            <form action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
             <a href="{% url 'feed' %}">Home</a>
             <a href="{% url 'profile' %}">Profile</a>
             <a href="{% url 'logout' %}">Logout</a>
         </nav>
     </header>
+    
 
     <main>
         {% if posts %}

@@ -29,6 +29,9 @@ def feed(request):
 def profile(request):
     form = PostForm()
 
+    if request.method == 'GET':
+        posts = Post.objects.filter(user = )
+
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -39,7 +42,16 @@ def profile(request):
     user_id = request.user.id
     posts = Post.objects.filter(user = user_id).order_by('-date_published')
     return render(request,'profile.html',{'posts':posts,'form':form})
-    
+
+@login_required
+def search_users(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        users = User.objects.filter(username__icontains = query)
+        return render(request, 'search_users.html', {'users': users, 'query': query})
+
+
+
 
 @login_required
 def logout_view(request):
