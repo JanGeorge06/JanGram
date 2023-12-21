@@ -71,6 +71,10 @@
             margin: 0; /* Remove default margin for the heading and paragraph */
         }
 
+        #caption {
+            font-weight: bold;
+        }
+
 
         .no-posts-message {
             text-align: center;
@@ -139,6 +143,11 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        #welcome {
+            text-align: left;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -146,8 +155,9 @@
     <header>
         <h1>JanGram</h1>
         <nav>
+            <p id="welcome"> Hello {{user}}</p>
             <a href="{% url 'feed' %}">Home</a>
-            <a href="">Profile</a>
+            <a href="{% url 'profile' %}">Profile</a>
             <a href="{% url 'logout' %}">Logout</a>
         </nav>
     </header>
@@ -160,7 +170,8 @@
                     {% if post.image %}
                         <img src="{{ post.image.url }}">
                     {% endif %}
-                    <p>{{ post.caption }}</p>
+                    <p id="caption">{{ post.caption }}</p>
+                    <p>  {{post.date_published}}</p>
                 </div>
             {% endfor %}
         {% else %}

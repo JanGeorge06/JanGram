@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
@@ -47,6 +46,9 @@ INSTALLED_APPS = [
     'Accounts',
     'blog'
 ]
+
+#AUTH_USER_MODEL = 'Accounts.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

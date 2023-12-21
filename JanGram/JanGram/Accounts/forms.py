@@ -16,7 +16,11 @@ class RegistrationForm(UserCreationForm):
         label='Password',
         
     ) # Set to False to remove the required validation
+    email = forms.EmailField(required=True, help_text='Enter a valid email address.')
+    date_of_birth = forms.DateField(required=True, help_text='Enter your date of birth (YYYY-MM-DD)')
+    profile_photo = forms.ImageField(required=False, help_text='Upload a profile photo (optional)')
+
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2','email','date_of_birth','profile_photo']
        

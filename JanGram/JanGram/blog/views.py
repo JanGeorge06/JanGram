@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from Accounts import views
 from .forms import PostForm
 from .models import Post
+from django.contrib.auth.models import User
+
 
 
 # Create your views here.
@@ -23,6 +25,21 @@ def feed(request):
     posts = Post.objects.order_by('-date_published')
     return render(request, 'feed.html', {'posts': posts, 'form': form})
 
+@login_required
+def profile(request):
+    form = PostForm()
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('feed')
+    user_id = request.user.id
+    posts = Post.objects.filter(user = user_id).order_by('-date_published')
+    return render(request,'profile.html',{'posts':posts,'form':form})
+    
 
 @login_required
 def logout_view(request):
